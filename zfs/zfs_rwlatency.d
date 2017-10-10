@@ -21,7 +21,7 @@ zfs_read:return,zfs_write:return /self->ts  / {
         this->type =  probefunc == "zfs_write" ? "W" : "R";
         this->delta=(timestamp - self->ts)/1000;
         @zfs_latency[this->type] = quantize(this->delta);
-/*      @zfs_iosize[this->type] = quantize(self->size); */
+      @zfs_iosize[this->type] = quantize(self->size); 
 }
 
 
@@ -30,9 +30,7 @@ dtrace:::END
         printf("zfs latency distribution (us)\n");
         printa(@zfs_latency);
 
-/*
         printf("\nzfs io size disctibution\n");
         printa(@zfs_iosize);
-*/
 }
 
